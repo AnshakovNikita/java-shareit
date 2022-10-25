@@ -13,10 +13,11 @@ import java.util.Map;
 public class ErrorHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class,
-            ConstraintViolationException.class})
+            ConstraintViolationException.class, EntityNotAvailableException.class,
+            IllegalStateException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> validationExceptionHandler(final RuntimeException e) {
-        return Map.of("Error: ", e.getMessage());
+    public ErrorResponse validationExceptionHandler(final RuntimeException e) {
+        return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
