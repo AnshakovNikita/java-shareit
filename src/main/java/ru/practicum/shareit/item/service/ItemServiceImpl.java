@@ -31,7 +31,6 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
-
     private final UserService userService;
     private final CommentRepository commentRepository;
     private final BookingRepository bookingRepository;
@@ -72,7 +71,6 @@ public class ItemServiceImpl implements ItemService {
         }
         return ItemMapper.toItemDto(itemRepository.save(item));
     }
-
 
     @Override
     public ItemDto getById(Long itemId, Long userId) {
@@ -138,6 +136,7 @@ public class ItemServiceImpl implements ItemService {
                 .map((this::setLastAndNextBookingForItem))
                 .collect(Collectors.toList());
     }
+
     @Transactional
     @Override
     public CommentDto addComment(Long userId, Long itemId, CommentDto commentDto) {
