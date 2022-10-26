@@ -43,14 +43,14 @@ public class BookingController {
     @GetMapping
     public List<BookingReturnDto> getUserBookings(@RequestHeader("X-Sharer-User-Id") Long userID,
                                                   @RequestParam(required = false, defaultValue = "ALL") String state) {
-        log.info("Get-запрос на получение чпичка бронирований пользователя с id {} и статусом {}", userID, state);
+        log.info("Get-запрос на получение списка бронирований пользователя с id {} и статусом {}", userID, state);
         return bookingService.getUserBookingList(userID, state);
     }
 
     @GetMapping("/owner")
     public List<BookingReturnDto> getOwnerBookings(@RequestHeader("X-Sharer-User-Id") Long userID,
                                                    @RequestParam(required = false, defaultValue = "ALL") String state) {
-        log.info("Get-запрос на получение чпичка бронирований пользователя с id {} и статусом {}", userID, state);
+        log.info("Get-запрос на получение списка бронирований пользователя с id {} и статусом {}", userID, state);
         return bookingService.getOwnerBookingList(userID, state);
     }
 

@@ -19,7 +19,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private BookingStatus status;
     @ManyToOne
     @JoinColumn(name = "booker_id")

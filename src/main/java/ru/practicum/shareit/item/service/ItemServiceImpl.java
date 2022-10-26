@@ -138,7 +138,7 @@ public class ItemServiceImpl implements ItemService {
                 .map((this::setLastAndNextBookingForItem))
                 .collect(Collectors.toList());
     }
-
+    @Transactional
     @Override
     public CommentDto addComment(Long userId, Long itemId, CommentDto commentDto) {
         List<Booking> bookings = bookingRepository
