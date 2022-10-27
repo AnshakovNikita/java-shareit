@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
+    @Override
+    <S extends Booking> S save(S booking);
+
     @Query(value = "select b from Booking as b where b.booker.id = ?1 order by b.start desc")
     List<Booking> findBookingsByBooker(Long bookerId);
 

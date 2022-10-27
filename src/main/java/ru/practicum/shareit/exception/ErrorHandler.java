@@ -20,7 +20,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> validationExceptionHandler(final RuntimeException e) {
         log.info("Error {}", e.getMessage());
-        return Map.of("Error: ", e.getMessage());
+        return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
