@@ -103,14 +103,14 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void patchBookingFailBookingTest(){
+    void patchBookingFailBookingTest() {
         Exception exc = assertThrows(EntityNotFoundException.class,
                 () -> bookingService.patchBooking(100L, user.getId(), true));
         assertEquals("Бронирование не найдено", exc.getMessage());
     }
 
     @Test
-    void patchBookingFailApprovedTest(){
+    void patchBookingFailApprovedTest() {
         when(bookingRepository.findById(1L))
                 .thenReturn(Optional.of(booking));
         Exception exc = assertThrows(EntityNotFoundException.class,
@@ -119,7 +119,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void patchBookingStatusApprovedTest(){
+    void patchBookingStatusApprovedTest() {
         booking.setStatus(BookingStatus.APPROVED);
         when(bookingRepository.findById(1L))
                 .thenReturn(Optional.of(booking));
@@ -129,7 +129,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getBookingFailBookingTest(){
+    void getBookingFailBookingTest() {
         when(bookingRepository.findById(1L))
                 .thenReturn(Optional.empty());
         Exception exc = assertThrows(EntityNotFoundException.class,
@@ -138,7 +138,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getBookingFailUserTest(){
+    void getBookingFailUserTest() {
         when(bookingRepository.findById(1L))
                 .thenReturn(Optional.of(booking));
         Exception exc = assertThrows(EntityNotFoundException.class,
@@ -147,14 +147,14 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void getUserBookingListUnknownStateTest(){
+    void getUserBookingListUnknownStateTest() {
         Exception exc = assertThrows(EntityNotAvailableException.class,
                 () -> bookingService.getUserBookingList(user.getId(), 0, 10, "UNKNOWN"));
         assertEquals("Unknown state: UNSUPPORTED_STATUS", exc.getMessage());
     }
 
     @Test
-    void getOwnerBookingListUnknownStateTest(){
+    void getOwnerBookingListUnknownStateTest() {
         Exception exc = assertThrows(EntityNotAvailableException.class,
                 () -> bookingService.getOwnerBookingList(user.getId(), 0, 10, "UNKNOWN"));
         assertEquals("Unknown state: UNSUPPORTED_STATUS", exc.getMessage());
