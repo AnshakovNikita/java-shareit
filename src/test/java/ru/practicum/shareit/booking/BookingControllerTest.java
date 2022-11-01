@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,7 +14,6 @@ import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingReturnDto;
 import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.nio.charset.StandardCharsets;
@@ -40,8 +38,6 @@ public class BookingControllerTest {
     @MockBean
     BookingService bookingService;
 
-    @Mock
-    private ItemService itemService;
     BookingReturnDto bookingReturnDto;
 
     BookingDto bookingDto;
@@ -52,14 +48,13 @@ public class BookingControllerTest {
     Integer size;
     LocalDateTime localDateTime = LocalDateTime.now();
 
-
     @BeforeEach
     void beforeEach() {
         mapper.findAndRegisterModules();
 
-
         UserDto userDto1 = new UserDto(1L, "user_1", "user_1@mail.com");
         ItemDto itemDto1 = new ItemDto(1L, "user_1", "user_1 description", true,4L);
+
         bookingReturnDto = new BookingReturnDto(1L, WAITING, userDto1, itemDto1, localDateTime, localDateTime.plusHours(2));
         bookingDto = new BookingDto(1L, WAITING, userDto1.getId(), itemDto1.getId(), localDateTime, localDateTime.plusHours(2), itemDto1.getName());
 

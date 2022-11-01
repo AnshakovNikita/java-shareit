@@ -62,5 +62,7 @@ public class BookingRepositoryTest {
         assertThat(bookingQuery.getBooker().getName(), equalTo(booking.getBooker().getName()));
         assertThat(bookingQuery.getStatus(), equalTo(booking.getStatus()));
         assertThat(bookingQuery.getItem().getName(), equalTo(booking.getItem().getName()));
+        assertThat(bookingQuery.getStart(), equalTo(booking.getStart()));
+        assertThat(bookingQuery.getEnd(), equalTo(booking.getEnd()));
     }
 }

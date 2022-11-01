@@ -103,6 +103,7 @@ public class BookingServiceImpl implements BookingService {
                         .map(BookingMapper::toBookingReturnDto)
                         .collect(Collectors.toList());
             case "ALL":
+                System.out.println("sss");
                 return bookingRepository.findBookingsByBooker(userId, pageable).stream()
                         .map(BookingMapper::toBookingReturnDto)
                         .collect(Collectors.toList());

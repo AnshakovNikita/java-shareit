@@ -58,6 +58,7 @@ class BookingMapperTest {
         assertEquals(bookingReturnDto.getEnd(), result.getEnd());
         assertEquals(bookingReturnDto.getBooker().getName(), result.getBooker().getName());
         assertEquals(bookingReturnDto.getItem().getName(), result.getItem().getName());
+        assertEquals(bookingReturnDto.getStatus(), result.getStatus());
     }
 
     @Test
@@ -68,6 +69,7 @@ class BookingMapperTest {
         assertEquals(booking.getItem().getName(), result.getItem().getName());
         assertEquals(booking.getStart(), result.getStart());
         assertEquals(booking.getEnd(), result.getEnd());
+        assertEquals(booking.getStatus(), result.getStatus());
     }
 
     @Test
@@ -78,6 +80,8 @@ class BookingMapperTest {
         assertEquals(bookingDto.getItemId(), result.getItemId());
         assertEquals(bookingDto.getStart(), result.getStart());
         assertEquals(bookingDto.getEnd(), result.getEnd());
+        assertEquals(bookingDto.getStatus(), result.getStatus());
+        assertEquals(bookingDto.getItemName(), result.getItemName());
     }
 
 }

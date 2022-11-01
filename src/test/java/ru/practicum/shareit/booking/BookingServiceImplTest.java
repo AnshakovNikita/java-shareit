@@ -17,6 +17,7 @@ import ru.practicum.shareit.booking.service.BookingService;
 import ru.practicum.shareit.booking.service.BookingServiceImpl;
 
 
+import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemMapper;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.service.ItemService;
@@ -28,6 +29,8 @@ import ru.practicum.shareit.user.service.UserService;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -49,6 +52,8 @@ class BookingServiceImplTest {
     private User user;
     private static User booker;
     private Item item;
+
+    private ItemDto itemDto;
     private static BookingDto bookingDto;
 
     private static BookingReturnDto bookingReturnDto;
@@ -86,7 +91,7 @@ class BookingServiceImplTest {
     }
 
     @Test
-    void bookingCreateFiledByEndInBeforeTest() {
+    void bookingAddFiledByEndInBeforeTest() {
         BookingDto failedBookingDto = new BookingDto(
                 1L,
                 booking.getStatus(),
@@ -159,5 +164,4 @@ class BookingServiceImplTest {
                 () -> bookingService.getOwnerBookingList(user.getId(), 0, 10, "UNKNOWN"));
         assertEquals("Unknown state: UNSUPPORTED_STATUS", exc.getMessage());
     }
-
 }
