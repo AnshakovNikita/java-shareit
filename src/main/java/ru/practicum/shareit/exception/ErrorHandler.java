@@ -27,7 +27,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> notFoundExceptionHandler(final EntityNotFoundException e) {
         log.info("Error {}", e.getMessage());
-        return Map.of("Error: ", e.getMessage());
+        return Map.of("Error", e.getMessage());
     }
 
     @ExceptionHandler(EntityAlreadyExistException.class)

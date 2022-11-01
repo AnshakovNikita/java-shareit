@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import ru.practicum.shareit.Create;
 import ru.practicum.shareit.item.dto.CommentDto;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 
@@ -21,7 +23,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping
-    public ItemDto addItem(@RequestHeader("X-Sharer-User-Id") long userId, @Validated({Create.class}) @RequestBody ItemDto itemDto) {
+    public ItemDto addItem(@RequestHeader("X-Sharer-User-Id") long userId,
+                           @Validated({Create.class}) @RequestBody ItemDto itemDto) {
         log.info("Получен запрос на добавление предмета {} пользователем с id {}", itemDto, userId);
         return itemService.addItem(itemDto, userId);
     }
@@ -44,9 +47,11 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public List<ItemDto> searchItem(@RequestParam String text) {
+    public List<ItemDto> searchItem(@RequestParam String text,
+                                    @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
+                                    @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
         log.info("Получен запрос на поиск предмета по тексту - {}", text);
-        return itemService.searchItem(text);
+        return itemService.searchItem(text, from, size);
     }
 
     @GetMapping("/{itemId}")
@@ -56,9 +61,11 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<ItemDto> getUserItems(@RequestHeader("X-Sharer-User-Id") long userId) {
+    public List<ItemDto> getUserItems(@RequestHeader("X-Sharer-User-Id") long userId,
+                                      @PositiveOrZero @RequestParam(value = "from", defaultValue = "0") Integer from,
+                                      @Positive @RequestParam(value = "size", defaultValue = "10") Integer size) {
         log.info("Получен запрос на получение списка предметов пользователя с id = {}", userId);
-        return itemService.getItems(userId);
+        return itemService.getAllItemsUser(userId, from, size);
     }
 
 }
