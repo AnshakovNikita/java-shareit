@@ -215,4 +215,33 @@ class BookingServiceImplTest {
         assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
         assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
+
+    @Test
+    void notApproveTest() {
+        final Long userId = 1L;
+        final Long bookingId = 1L;
+        final Boolean approved = false;
+        final Booking localBooking = Booking.builder()
+                .id(1L)
+                .start(LocalDateTime.now().plusDays(1))
+                .end(LocalDateTime.now().plusDays(3))
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.WAITING)
+                .build();
+
+        when(bookingRepository.findById(bookingId))
+                .thenReturn(Optional.of(localBooking));
+        when(bookingRepository.save(localBooking))
+                .thenReturn(booking);
+
+        final var result = bookingService.patchBooking(bookingId, userId, approved);
+
+        assertThat(result.getId(), equalTo(bookingReturnDto.getId()));
+        assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
+        assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
+        assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
+        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
+    }
 }

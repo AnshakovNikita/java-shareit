@@ -283,4 +283,32 @@ public class ItemServiceImplIntegratedTest {
         assertThat(resItemDto.getAvailable(), equalTo(createItem.getAvailable()));
         assertThat(resItemDto.getRequestId(), equalTo(null));
     }
+
+    @Test
+    void searchItemTest() {
+        final int from = 0;
+        final int size = 10;
+        final Long itemId = createItem.getId();
+
+        final List<ItemDto> result = itemService.searchItem("item1", from, size);
+
+        assertThat(result.size(), equalTo(1));
+        assertThat(result.get(0).getId(), equalTo(itemId));
+        assertThat(result.get(0).getName(), equalTo(createItem.getName()));
+        assertThat(result.get(0).getDescription(), equalTo(createItem.getDescription()));
+        assertThat(result.get(0).getAvailable(), equalTo(createItem.getAvailable()));
+        assertThat(result.get(0).getLastBooking(), equalTo(null));
+        assertThat(result.get(0).getNextBooking(), equalTo(null));
+        assertThat(result.get(0).getComments(), equalTo(List.of()));
+    }
+
+    @Test
+    void searchItemUncTextTest() {
+        final int from = 0;
+        final int size = 10;
+
+        final List<ItemDto> result = itemService.searchItem("", from, size);
+
+        assertThat(result.size(), equalTo(0));
+    }
 }
