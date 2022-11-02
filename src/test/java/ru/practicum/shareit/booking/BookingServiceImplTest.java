@@ -24,14 +24,17 @@ import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.dto.UserMapper;
 import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.repository.UserRepository;
 import ru.practicum.shareit.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
@@ -42,6 +45,9 @@ class BookingServiceImplTest {
 
     @Mock
     private ItemService itemService;
+
+    @Mock
+    private UserRepository userRepository;
 
     @Mock
     private UserService userService;
@@ -78,7 +84,7 @@ class BookingServiceImplTest {
         );
 
         bookingReturnDto = new BookingReturnDto(
-                2L,
+                1L,
                 booking.getStatus(),
                 UserMapper.toUserDto(booking.getBooker()),
                 ItemMapper.toItemDto(booking.getItem()),
@@ -110,6 +116,24 @@ class BookingServiceImplTest {
         Exception exc = assertThrows(EntityNotFoundException.class,
                 () -> bookingService.patchBooking(100L, user.getId(), true));
         assertEquals("Бронирование не найдено", exc.getMessage());
+    }
+
+    @Test
+    void findByIdTest() {
+        final Long userId = 1L;
+        final Long bookingId = 1L;
+
+        when(bookingRepository.findById(bookingId))
+                .thenReturn(Optional.of(booking));
+
+        final var result = bookingService.getBooking(bookingId, userId);
+
+        assertThat(result.getId(), equalTo(bookingReturnDto.getId()));
+        assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
+        assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
+        assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
+        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
 
     @Test
@@ -161,5 +185,34 @@ class BookingServiceImplTest {
         Exception exc = assertThrows(EntityNotAvailableException.class,
                 () -> bookingService.getOwnerBookingList(user.getId(), 0, 10, "UNKNOWN"));
         assertEquals("Unknown state: UNSUPPORTED_STATUS", exc.getMessage());
+    }
+
+    @Test
+    void approveTest() {
+        final Long userId = 1L;
+        final Long bookingId = 1L;
+        final Boolean approved = true;
+        final Booking localBooking = Booking.builder()
+                .id(1L)
+                .start(LocalDateTime.now().plusDays(1))
+                .end(LocalDateTime.now().plusDays(3))
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.REJECTED)
+                .build();
+
+        when(bookingRepository.findById(bookingId))
+                .thenReturn(Optional.of(localBooking));
+        when(bookingRepository.save(localBooking))
+                .thenReturn(booking);
+
+        final var result = bookingService.patchBooking(bookingId, userId, approved);
+
+        assertThat(result.getId(), equalTo(bookingReturnDto.getId()));
+        assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
+        assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
+        assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
+        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
 }

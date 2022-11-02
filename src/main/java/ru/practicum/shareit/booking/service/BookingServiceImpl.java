@@ -75,8 +75,6 @@ public class BookingServiceImpl implements BookingService {
         return BookingMapper.toBookingReturnDto(bookingRepository.save(booking));
     }
 
-
-
     @Override
     public BookingReturnDto getBooking(Long bookingId, Long userId) {
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(() -> {
@@ -103,7 +101,6 @@ public class BookingServiceImpl implements BookingService {
                         .map(BookingMapper::toBookingReturnDto)
                         .collect(Collectors.toList());
             case "ALL":
-                System.out.println("sss");
                 return bookingRepository.findBookingsByBooker(userId, pageable).stream()
                         .map(BookingMapper::toBookingReturnDto)
                         .collect(Collectors.toList());
