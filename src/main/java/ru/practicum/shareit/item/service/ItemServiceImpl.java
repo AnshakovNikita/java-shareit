@@ -52,6 +52,8 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public ItemDto updateItem(ItemDto updatedItemDto, long itemId, long userId) {
+        if (userService.getUserById(userId) == null)
+            throw new EntityNotFoundException("Пользователь не найден");
         Item updatedItem = ItemMapper.toItem(updatedItemDto);
         Item item = itemRepository.findById(itemId).orElseThrow(() -> {
             throw new EntityNotFoundException("Товар не найден");

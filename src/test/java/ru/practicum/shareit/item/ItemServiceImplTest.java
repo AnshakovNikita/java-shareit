@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.booking.dto.BookingReturnDto;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.model.BookingStatus;
 import ru.practicum.shareit.booking.repository.BookingRepository;
@@ -53,8 +52,6 @@ public class ItemServiceImplTest {
     private BookingDto bookingDto;
     private List<Booking> list;
     private List<ItemDto> listItemDto;
-
-    private List<BookingReturnDto> bookingList;
     private ItemRequest itemRequest;
 
     @BeforeEach
@@ -76,12 +73,7 @@ public class ItemServiceImplTest {
                 localDateTime.plusMonths(2), item.getName());
 
         list = Collections.singletonList(booking);
-        List<Item> listItem = Collections.singletonList(item);
         listItemDto = Collections.singletonList(itemDto);
-        List<CommentDto> listCommentDto = Collections.singletonList(commentDto);
-        String state = "state";
-        Integer from = 1;
-        Integer size = 4;
     }
 
     @Test
