@@ -197,4 +197,18 @@ public class ItemServiceImplTest {
                 .when(commentRepository.save(comment)).thenReturn(comment);
         Assertions.assertThrows(IllegalStateException.class, () -> itemService.addComment(1L, 1L, commentDto));
     }
+
+    @Test
+    void getItemByIdFailTest() {
+        Mockito
+                .when(itemRepository.findById(1L)).thenReturn(Optional.ofNullable(item));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> itemService.getItemById(100L));
+    }
+
+    @Test
+    void getItemsWrongIdTest() {
+        Mockito
+                .when(itemRepository.findById(1L)).thenReturn(Optional.ofNullable(item));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> itemService.getItems(100L));
+    }
 }

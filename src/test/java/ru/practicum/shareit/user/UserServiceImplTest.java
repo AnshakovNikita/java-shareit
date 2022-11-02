@@ -93,4 +93,18 @@ class UserServiceImplTest {
                 .when(userRepository.save(user)).thenReturn(user);
         Assertions.assertThrows(EntityNotFoundException.class, () -> userService.updateUser(500L, user));
     }
+
+    @Test
+    void getUserByIdNotFoundTest() {
+        Mockito
+                .when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> userService.getUserById(100L));
+    }
+
+    @Test
+    void getUserItemsIdNotFoundTest() {
+        Mockito
+                .when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
+        Assertions.assertThrows(EntityNotFoundException.class, () -> userService.getUserItems(100L));
+    }
 }

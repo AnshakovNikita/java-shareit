@@ -18,6 +18,7 @@ import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
+import ru.practicum.shareit.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,6 +43,8 @@ public class ItemServiceImplIntegratedTest {
     private final BookingRepository bookingRepository;
 
     private final CommentRepository commentRepository;
+
+    private final UserService userService;
 
     private User createOwner;
 
@@ -227,5 +230,57 @@ public class ItemServiceImplIntegratedTest {
         );
 
         assertThat("Предмет отсутсвует у данного пользователя", equalTo(exception.getMessage()));
+    }
+
+    @Test
+    void addCommentFutureExceptionTest() {
+        final User author = User.builder()
+                .name("John")
+                .email("hfkg@email.com")
+                .build();
+        userRepository.save(author);
+        final Booking booking = new Booking(null, BookingStatus.APPROVED, author, createItem,
+                LocalDateTime.now().minusDays(3), LocalDateTime.now().plusDays(1));
+
+        bookingRepository.save(booking);
+        final CommentDto commentdto = new CommentDto(null, "text", createItem.getId(), author.getName(), null);
+
+        final var exception = assertThrows(
+                IllegalStateException.class,
+                () -> itemService.addComment(author.getId(), createItem.getId(), commentdto)
+        );
+
+        assertThat("Комментарий не может быть оставлен к будущему бронированию", equalTo(exception.getMessage()));
+    }
+
+    @Test
+    void getAllItemsTest() {
+        final Long itemId = createItem.getId();
+
+        final List<ItemDto> result = itemService.getItems(0);
+
+        assertThat(result.size(), equalTo(1));
+        assertThat(result.get(0).getId(), equalTo(itemId));
+        assertThat(result.get(0).getName(), equalTo(createItem.getName()));
+        assertThat(result.get(0).getDescription(), equalTo(createItem.getDescription()));
+        assertThat(result.get(0).getAvailable(), equalTo(createItem.getAvailable()));
+        assertThat(result.get(0).getLastBooking(), equalTo(null));
+        assertThat(result.get(0).getNextBooking(), equalTo(null));
+        assertThat(result.get(0).getComments(), equalTo(List.of()));
+    }
+
+    @Test
+    void updateTest() {
+        final Long ownerId = createOwner.getId();
+        final Long itemId = createItem.getId();
+        ItemDto itemDto = new ItemDto(null, "newName", "newDescription", true, null);
+
+        ItemDto resItemDto = itemService.updateItem(itemDto, itemId, ownerId);
+
+        assertThat(resItemDto.getId(), equalTo(createItem.getId()));
+        assertThat(resItemDto.getDescription(), equalTo(createItem.getDescription()));
+        assertThat(resItemDto.getName(), equalTo(createItem.getName()));
+        assertThat(resItemDto.getAvailable(), equalTo(createItem.getAvailable()));
+        assertThat(resItemDto.getRequestId(), equalTo(null));
     }
 }

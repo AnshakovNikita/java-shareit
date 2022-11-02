@@ -58,10 +58,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemRepository.findById(itemId).orElseThrow(() -> {
             throw new EntityNotFoundException("Товар не найден");
         });
-        Set<Long> userItems = userService.getUserItems(userId).stream()
-                .map(Item::getId)
-                .collect(Collectors.toSet());
-        if (!userItems.contains(itemId)) {
+        if (userId != item.getUserId()) {
             throw new EntityNotFoundException("Предмет отсутсвует у данного пользователя");
         }
 
