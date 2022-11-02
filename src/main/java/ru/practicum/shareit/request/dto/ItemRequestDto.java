@@ -16,6 +16,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemRequestDto {
     public ItemRequestDto(Long id, String description, Long requesterId, LocalDateTime created) {

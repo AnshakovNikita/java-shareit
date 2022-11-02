@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
