@@ -30,13 +30,6 @@ public class ErrorHandler {
         return Map.of("Error", e.getMessage());
     }
 
-    @ExceptionHandler(EntityAlreadyExistException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public Map<String, String> conflictExceptionHandler(final EntityAlreadyExistException e) {
-        log.info("Error {}", e.getMessage());
-        return Map.of("Error: ", e.getMessage());
-    }
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, String> handleThrowable(final Throwable e) {
