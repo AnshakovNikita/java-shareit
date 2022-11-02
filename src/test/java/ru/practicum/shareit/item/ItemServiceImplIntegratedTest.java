@@ -19,7 +19,6 @@ import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,8 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class ItemServiceImplIntegratedTest {
-
-    private final EntityManager em;
 
     private final ItemService itemService;
 
@@ -117,7 +114,6 @@ public class ItemServiceImplIntegratedTest {
 
         assertThat(resCommentDto.getId(), equalTo(resComment.getId()));
         assertThat(resCommentDto.getText(), equalTo(resComment.getText()));
-        assertThat(resCommentDto.getItemId(), equalTo(resComment.getItem().getId()));
         assertThat(resCommentDto.getAuthorName(), equalTo(resComment.getAuthor().getName()));
     }
 

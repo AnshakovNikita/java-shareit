@@ -96,7 +96,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item getItemById(Long itemId) {
-        System.out.println(itemRepository.findById(itemId) + "111");
         return itemRepository.findById(itemId).orElseThrow(() -> {
             throw new EntityNotFoundException("Товар не найден");
         });
