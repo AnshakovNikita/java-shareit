@@ -148,7 +148,8 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList());
     }
 
-    private List<ItemDto> getItemByUser(long userId) {
+    @Override
+    public List<ItemDto> getItemByUser(long userId) {
         return userService.getUserItems(userId).stream()
                 .map(ItemMapper::toItemDto)
                 .sorted(Comparator.comparing(ItemDto::getId))

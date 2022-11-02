@@ -491,4 +491,136 @@ public class BookingServiceImplIntegratedTest {
         assertThat("Unknown state: UNSUPPORTED_STATUS", equalTo(exception.getMessage()));
     }
 
+    @Test
+    void findAllByStateForOwnerAllTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "ALL";
+        LocalDateTime start = LocalDateTime.now().plusDays(1);
+        LocalDateTime end = LocalDateTime.now().plusDays(3);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.APPROVED)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
+    @Test
+    void findAllByStateForOwnerRejectedTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "REJECTED";
+        LocalDateTime start = LocalDateTime.now().plusDays(1);
+        LocalDateTime end = LocalDateTime.now().plusDays(3);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.REJECTED)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
+    @Test
+    void findAllByStateForOwnerFutureTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "FUTURE";
+        LocalDateTime start = LocalDateTime.now().plusDays(1);
+        LocalDateTime end = LocalDateTime.now().plusDays(3);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.APPROVED)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
+    @Test
+    void findAllByStateWaitingForOwnerTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "WAITING";
+        LocalDateTime start = LocalDateTime.now().plusDays(1);
+        LocalDateTime end = LocalDateTime.now().plusDays(3);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.WAITING)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
+    @Test
+    void findAllByStateCurrentForOwnerTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "CURRENT";
+        LocalDateTime start = LocalDateTime.now().minusDays(1);
+        LocalDateTime end = LocalDateTime.now().plusDays(3);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.APPROVED)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
+    @Test
+    void findAllByStatePastForOwnerTest() {
+        final Long ownerId = owner.getId();
+        final int from = 0;
+        final int size = 10;
+        final String state = "PAST";
+        LocalDateTime start = LocalDateTime.now().minusDays(3);
+        LocalDateTime end = LocalDateTime.now().minusDays(1);
+        booking = Booking.builder()
+                .start(start)
+                .end(end)
+                .item(item)
+                .booker(user)
+                .status(BookingStatus.APPROVED)
+                .build();
+        bookingRepository.save(booking);
+
+        final var result = bookingService.getOwnerBookingList(ownerId, from, size, state);
+
+        assertThat(result.size(), equalTo(0));
+    }
+
 }

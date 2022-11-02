@@ -311,4 +311,13 @@ public class ItemServiceImplIntegratedTest {
 
         assertThat(result.size(), equalTo(0));
     }
+
+    @Test
+    void getItemByUserTest() {
+        final Long ownerId = createOwner.getId();
+
+        final List<ItemDto> result = itemService.getItemByUser(ownerId);
+
+        assertThat(result.size(), equalTo(0));
+    }
 }
