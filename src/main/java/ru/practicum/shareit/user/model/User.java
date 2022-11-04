@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
