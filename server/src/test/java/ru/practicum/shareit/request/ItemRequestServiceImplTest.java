@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Pageable;
 import ru.practicum.shareit.exception.EntityNotAvailableException;
 import ru.practicum.shareit.exception.EntityNotFoundException;
 import ru.practicum.shareit.item.model.Item;
@@ -83,44 +82,6 @@ class ItemRequestServiceImplTest {
     @Test
     void findAllByRequester() {
     }
-
-    /*@Test
-    void findAll() {
-        final Long userId = 1L;
-        final int from = 0;
-        final int size = 10;
-        Pageable pageable = FromSizeRequest.of(from, size);
-        final ItemRequest itemRequest = ItemRequest.builder()
-                .id(1L)
-                .description("description")
-                .requesterId(1L)
-                .created(time)
-                .build();
-        List<ItemRequest> itemRequestList = List.of(itemRequest);
-
-        when(userRepository.existsById(userId))
-                .thenReturn(true);
-        when(itemRequestRepository.findAllByRequesterIdNotOrderByCreatedDesc(userId, pageable).getContent())
-                .thenReturn(itemRequestList);
-        when(itemRepository.findAllByRequestId(1L))
-                .thenReturn(List.of());
-
-        final var result = itemRequestService.findAll(userId, from, size);
-
-        assertThat(result.size(), equalTo(1));
-        assertThat(result.get(0).getId(), equalTo(itemRequestDto.getId()));
-        assertThat(result.get(0).getDescription(), equalTo(itemRequestDto.getDescription()));
-        assertThat(result.get(0).getRequesterId(), equalTo(itemRequestDto.getRequesterId()));
-        assertThat(result.get(0).getCreated(), equalTo(itemRequestDto.getCreated()));
-        assertThat(result.get(0).getItems().size(), equalTo(0));
-
-        verify(userRepository, times(1))
-                .existsById(userId);
-        verify(itemRequestRepository, times(1))
-                .findAllByRequesterIdNotOrderByCreatedDesc(userId, pageable);
-        verify(itemRepository, times(1))
-                .findAllByRequestId(1L);
-    } */
 
     @Test
     void findAllUserNotFoundExceptionExistsTest() {
