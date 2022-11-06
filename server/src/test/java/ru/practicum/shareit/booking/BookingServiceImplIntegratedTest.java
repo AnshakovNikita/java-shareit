@@ -92,7 +92,7 @@ public class BookingServiceImplIntegratedTest {
         final var result = bookingService.addBooking(bookingCreateDto, user.getId());
 
         assertNotNull(result.getId());
-        assertThat(result.getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.getItem(), equalTo(bookingPrintDto.getItem()));
         assertThat(result.getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.getEnd(), equalTo(bookingPrintDto.getEnd()));
@@ -211,7 +211,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
@@ -247,7 +247,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
@@ -283,7 +283,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
@@ -320,7 +320,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
@@ -356,7 +356,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
@@ -392,7 +392,7 @@ public class BookingServiceImplIntegratedTest {
         assertThat(result.get(0).getStart(), equalTo(bookingPrintDto.getStart()));
         assertThat(result.get(0).getEnd(), equalTo(bookingPrintDto.getEnd()));
         assertThat(result.get(0).getItem(), equalTo(bookingPrintDto.getItem()));
-        assertThat(result.get(0).getBooker(), equalTo(bookingPrintDto.getBooker()));
+        assertThat(result.get(0).getBooker().getId(), equalTo(bookingPrintDto.getBooker().getId()));
         assertThat(result.get(0).getStatus(), equalTo(bookingPrintDto.getStatus()));
     }
 
