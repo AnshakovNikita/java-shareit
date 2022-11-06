@@ -24,7 +24,6 @@ import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.request.model.ItemRequest;
 import ru.practicum.shareit.user.dto.UserMapper;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.repository.UserRepository;
 import ru.practicum.shareit.user.service.UserService;
 
 import java.time.LocalDateTime;
@@ -45,9 +44,6 @@ class BookingServiceImplTest {
 
     @Mock
     private ItemService itemService;
-
-    @Mock
-    private UserRepository userRepository;
 
     @Mock
     private UserService userService;
@@ -132,7 +128,7 @@ class BookingServiceImplTest {
         assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
         assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
         assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
-        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getBooker().getId(), equalTo(bookingReturnDto.getBooker().getId()));
         assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
 
@@ -212,7 +208,7 @@ class BookingServiceImplTest {
         assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
         assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
         assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
-        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getBooker().getId(), equalTo(bookingReturnDto.getBooker().getId()));
         assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
 
@@ -241,7 +237,7 @@ class BookingServiceImplTest {
         assertThat(result.getStart(), equalTo(bookingReturnDto.getStart()));
         assertThat(result.getEnd(), equalTo(bookingReturnDto.getEnd()));
         assertThat(result.getItem(), equalTo(bookingReturnDto.getItem()));
-        assertThat(result.getBooker(), equalTo(bookingReturnDto.getBooker()));
+        assertThat(result.getBooker().getId(), equalTo(bookingReturnDto.getBooker().getId()));
         assertThat(result.getStatus(), equalTo(bookingReturnDto.getStatus()));
     }
 }
