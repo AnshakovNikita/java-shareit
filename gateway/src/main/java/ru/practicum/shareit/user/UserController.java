@@ -2,7 +2,6 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,12 +15,7 @@ import javax.validation.Valid;
 @Slf4j
 @RequestMapping(path = "/users")
 public class UserController {
-    UserClient userClient;
-
-    @Autowired
-    public UserController(UserClient userClient) {
-        this.userClient = userClient;
-    }
+    private final UserClient userClient;
 
     @PostMapping()
     public ResponseEntity<Object> postUserGateway(@Valid @RequestBody UserDto userDto) {
